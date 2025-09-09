@@ -67,6 +67,13 @@ public class StudentManagement {
             s.display();
             System.out.println("---------------");
         }
+students.sort((s1, s2) -> s2.totalMarks() - s1.totalMarks());
+
+System.out.println("\nStudents sorted by total marks:");
+for(Student s : students) {
+    s.display();
+    System.out.println("---------------");
+}
 sc.nextLine(); // consume newline
         System.out.print("Enter name of student to search: ");
         String searchName = sc.nextLine();
