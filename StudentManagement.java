@@ -30,6 +30,14 @@ class Student {
 }
 
 public class StudentManagement {
+  public static Student searchStudent(ArrayList<Student> students, String name) {
+        for(Student s : students) {
+            if(s.name.equalsIgnoreCase(name)) {
+                return s;
+            }
+        }
+        return null;
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ArrayList<Student> students = new ArrayList<>();
@@ -58,6 +66,17 @@ public class StudentManagement {
         for(Student s : students) {
             s.display();
             System.out.println("---------------");
+        }
+sc.nextLine(); // consume newline
+        System.out.print("Enter name of student to search: ");
+        String searchName = sc.nextLine();
+
+        Student result = searchStudent(students, searchName);
+        if(result != null) {
+            System.out.println("Student found:");
+            result.display();
+        } else {
+            System.out.println("Student not found.");
         }
 
         // Find the student with the highest total marks
