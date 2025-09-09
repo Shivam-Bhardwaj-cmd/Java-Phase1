@@ -4,15 +4,16 @@ public class SumOfNumbers {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter N: ");
-        double n = scanner.nextDouble();
+        System.out.print("Enter the number of terms: ");
+        int n = scanner.nextInt();
 
-        double sum = 0;
-        for(int i = 1; i <= (int)n; i++) {
-            sum += i;
+        int sum = 0;
+
+        for(int i = 1; i <= n; i++) {
+            sum = sum + i;
         }
 
-        System.out.println("Sum of first " + (int)n + " numbers is: " + sum);
+        System.out.println("The sum of first " + n + " natural numbers is: " + sum);
 
         scanner.close();
     }

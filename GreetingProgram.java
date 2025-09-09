@@ -7,10 +7,7 @@ public class GreetingProgram {
         System.out.print("Enter your name: ");
         String name = scanner.nextLine();
 
-        System.out.print("Enter your city: ");
-        String city = scanner.nextLine();
-
-        System.out.println("Hello " + name + " from " + city + "!");
+        System.out.println("Hello, " + name + "! Welcome to Java programming.");
 
         scanner.close();
     }
