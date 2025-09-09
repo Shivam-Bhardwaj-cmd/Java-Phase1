@@ -30,7 +30,9 @@ class Student {
 }
 
 public class StudentManagement {
-  public static Student searchStudent(ArrayList<Student> students, String name) {
+
+    // Method to search student by name
+    public static Student searchStudent(ArrayList<Student> students, String name) {
         for(Student s : students) {
             if(s.name.equalsIgnoreCase(name)) {
                 return s;
@@ -38,25 +40,65 @@ public class StudentManagement {
         }
         return null;
     }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ArrayList<Student> students = new ArrayList<>();
 
-        System.out.print("Enter number of students: ");
-        int n = sc.nextInt();
+        int n = 0;
+        while(true) {
+            try {
+                System.out.print("Enter number of students: ");
+                n = sc.nextInt();
+                if(n <= 0) {
+                    System.out.println("Number of students must be greater than 0.");
+                    continue;
+                }
+                break;
+            } catch(InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+                sc.nextLine(); // clear the wrong input
+            }
+        }
 
         for(int i = 0; i < n; i++) {
             sc.nextLine(); // consume newline
             System.out.print("Enter name of student " + (i+1) + ": ");
             String name = sc.nextLine();
 
-            System.out.print("Enter number of subjects: ");
-            int subjects = sc.nextInt();
-            int[] marks = new int[subjects];
+            int subjects = 0;
+            while(true) {
+                try {
+                    System.out.print("Enter number of subjects: ");
+                    subjects = sc.nextInt();
+                    if(subjects <= 0) {
+                        System.out.println("Number of subjects must be greater than 0.");
+                        continue;
+                    }
+                    break;
+                } catch(InputMismatchException e) {
+                    System.out.println("Invalid input. Please enter a valid number.");
+                    sc.nextLine(); // clear the wrong input
+                }
+            }
 
+            int[] marks = new int[subjects];
             System.out.println("Enter marks for each subject:");
             for(int j = 0; j < subjects; j++) {
-                marks[j] = sc.nextInt();
+                while(true) {
+                    try {
+                        System.out.print("Mark for subject " + (j + 1) + ": ");
+                        marks[j] = sc.nextInt();
+                        if(marks[j] < 0 || marks[j] > 100) {
+                            System.out.println("Marks should be between 0 and 100.");
+                            continue;
+                        }
+                        break;
+                    } catch(InputMismatchException e) {
+                        System.out.println("Invalid input. Please enter a valid number.");
+                        sc.nextLine(); // clear the wrong input
+                    }
+                }
             }
 
             students.add(new Student(name, marks));
@@ -67,14 +109,16 @@ public class StudentManagement {
             s.display();
             System.out.println("---------------");
         }
-students.sort((s1, s2) -> s2.totalMarks() - s1.totalMarks());
 
-System.out.println("\nStudents sorted by total marks:");
-for(Student s : students) {
-    s.display();
-    System.out.println("---------------");
-}
-sc.nextLine(); // consume newline
+        students.sort((s1, s2) -> s2.totalMarks() - s1.totalMarks());
+
+        System.out.println("\nStudents sorted by total marks:");
+        for(Student s : students) {
+            s.display();
+            System.out.println("---------------");
+        }
+
+        sc.nextLine(); // consume newline
         System.out.print("Enter name of student to search: ");
         String searchName = sc.nextLine();
 
