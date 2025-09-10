@@ -17,29 +17,43 @@ public class Day7 {
             }
         }
 
-        // Input the element to search for
-        int x = sc.nextInt();
+        // Find and print saddle points
+        boolean found = false;
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < m; j++) {
+                if(isSaddlePoint(matrix, n, m, i, j)) {
+                    System.out.println("Saddle point: " + matrix[i][j]);
+                    found = true;
+                }
+            }
+        }
 
-        // Count occurrences
-        int count = countOccurrences(matrix, n, m, x);
-
-        // Print the result
-        System.out.println(count);
+        if(!found) {
+            System.out.println("No saddle point found");
+        }
 
         sc.close();
     }
 
-    // Method to count occurrences of x in the matrix
-    public static int countOccurrences(int[][] matrix, int n, int m, int x) {
-        int count = 0;
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < m; j++) {
-                if(matrix[i][j] == x) {
-                    count++;
-                }
+    // Method to check if element at (row, col) is a saddle point
+    public static boolean isSaddlePoint(int[][] matrix, int n, int m, int row, int col) {
+        int element = matrix[row][col];
+
+        // Check if element is minimum in its row
+        for(int j = 0; j < m; j++) {
+            if(matrix[row][j] < element) {
+                return false;
             }
         }
-        return count;
+
+        // Check if element is maximum in its column
+        for(int i = 0; i < n; i++) {
+            if(matrix[i][col] > element) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
 
