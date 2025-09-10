@@ -7,56 +7,56 @@ public class Day7 {
 
         // Input the size of the matrix
         int n = sc.nextInt();
-        int[][] matrix = new int[n][n];
+        int m = sc.nextInt();
+        int[][] matrix = new int[n][m];
 
         // Input the matrix elements
         for(int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
+            for(int j = 0; j < m; j++) {
                 matrix[i][j] = sc.nextInt();
             }
         }
 
-        // Rotate the matrix
-        rotate90(matrix, n);
-
-        // Print the rotated matrix
-        printMatrix(matrix, n);
+        // Call the spiral traversal method
+        spiralTraversal(matrix, n, m);
 
         sc.close();
     }
 
-    // Method to rotate the matrix by 90 degrees clockwise
-    public static void rotate90(int[][] matrix, int n) {
-        // Step 1: Transpose the matrix
-        for(int i = 0; i < n; i++) {
-            for(int j = i; j < n; j++) {
-                int temp = matrix[i][j];
-                matrix[i][j] = matrix[j][i];
-                matrix[j][i] = temp;
-            }
-        }
+    // Method to print the spiral order of the matrix
+    public static void spiralTraversal(int[][] matrix, int n, int m) {
+        int top = 0, bottom = n - 1;
+        int left = 0, right = m - 1;
 
-        // Step 2: Reverse each row
-        for(int i = 0; i < n; i++) {
-            int start = 0;
-            int end = n - 1;
-            while(start < end) {
-                int temp = matrix[i][start];
-                matrix[i][start] = matrix[i][end];
-                matrix[i][end] = temp;
-                start++;
-                end--;
-            }
-        }
-    }
+        while(top <= bottom && left <= right) {
 
-    // Method to print the matrix
-    public static void printMatrix(int[][] matrix, int n) {
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
-                System.out.print(matrix[i][j] + " ");
+            // Traverse from left to right
+            for(int j = left; j <= right; j++) {
+                System.out.print(matrix[top][j] + " ");
             }
-            System.out.println();
+            top++;
+
+            // Traverse from top to bottom
+            for(int i = top; i <= bottom; i++) {
+                System.out.print(matrix[i][right] + " ");
+            }
+            right--;
+
+            // Traverse from right to left if still rows remain
+            if(top <= bottom) {
+                for(int j = right; j >= left; j--) {
+                    System.out.print(matrix[bottom][j] + " ");
+                }
+                bottom--;
+            }
+
+            // Traverse from bottom to top if still columns remain
+            if(left <= right) {
+                for(int i = bottom; i >= top; i--) {
+                    System.out.print(matrix[i][left] + " ");
+                }
+                left++;
+            }
         }
     }
 }
